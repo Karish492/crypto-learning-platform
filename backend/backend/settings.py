@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'data_wizard',
     'data_wizard.sources',
     'corsheaders',
-    'account_system',
-    'module_sys',
 ]
 
 MIDDLEWARE = [
