@@ -27,7 +27,9 @@ DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 CORS_ALLOW_ALL_ORIGINS = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
+
+
 
 
 # Application definition
@@ -44,6 +46,8 @@ INSTALLED_APPS = [
     'data_wizard',
     'data_wizard.sources',
     'corsheaders',
+    'rest_framework_simplejwt',
+    'module_system',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+
 
 
 # Database
@@ -129,3 +134,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

@@ -2,3 +2,4 @@ Django==5.1.2
 djangorestframework
 data-wizard
 django-cors-headers
+djangorestframework-simplejwt
