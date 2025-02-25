@@ -27,7 +27,7 @@ DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = DEBUG
 CORS_ALLOW_ALL_ORIGINS = True
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'data_wizard',
     'data_wizard.sources',
     'corsheaders',
     'rest_framework_simplejwt',
+    'djoser',
     'module_system',
 ]
 
@@ -61,6 +63,18 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework_simplejwt.authentication.JWTAuthentication',
+	),
+	'DEFAULT_PERMISSION_CLASSES': (
+		'rest_framework.permissions.IsAuthenticated',),
+}
+
+SIMPLE_JWT =  { 
+	'AUTH_HEADER_TYPES': ('Bearer',),
+	}
+	
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -104,13 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+  
+  ]
 
 
 # Internationalization
