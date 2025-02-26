@@ -28,3 +28,4 @@ class User_Completion(models.Model):
     	completion_date = models.DateTimeField(null=True, blank=True)
 
 
+	

@@ -6,6 +6,8 @@ class user_progress_serializer(serializers.ModelSerializer):
 		model = User_Progress
 		fields = '__all__'
 		
+	
+		
 class user_completed_serializer(serializers.ModelSerializer):
 	class Meta:
 		model = User_Completion
