@@ -27,6 +27,8 @@ class user_progress_view(viewsets.ModelViewSet):
 		user_id = self.kwargs['id']
 		return User_Progress.objects.filter(user_id=user_id)
 		
+
+		
 class user_completed_view(viewsets.ModelViewSet):
 	queryset = User_Completion.objects.all()
 	serializer_class = user_completed_serializer
