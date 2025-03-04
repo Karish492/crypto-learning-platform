@@ -11,21 +11,21 @@ class lesson_view(viewsets.ModelViewSet):
 	permission_classes = [AllowAny]  
 	
 
-class user_progress_view_all(viewsets.ModelViewSet):
-	queryset = User_Progress.objects.all()
-	serializer_class = user_progress_serializer
+class lesson_tracking_view_all(viewsets.ModelViewSet):
+	queryset = Lesson_Tracking.objects.all()
+	serializer_class = lesson_tracking_serializer
 	permission_classes = [AllowAny] 
 	
 	
 	
-class user_progress_view(viewsets.ModelViewSet):
+class lesson_tracking_view(viewsets.ModelViewSet):
 
-	serializer_class = user_progress_serializer
+	serializer_class = lesson_tracking_serializer
 	permission_classes = [AllowAny] # Should be IsAuthenticated but this is for testing / depends on how front end is setup
 
 	def get_queryset(self):
 		user_id = self.kwargs['id']
-		return User_Progress.objects.filter(user_id=user_id)
+		return Lesson_Tracking.objects.filter(user_id=user_id)
 		
 
 		
