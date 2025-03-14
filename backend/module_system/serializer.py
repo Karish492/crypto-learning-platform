@@ -22,7 +22,8 @@ class Lesson_serializer(serializers.ModelSerializer):
 	class Meta:
 		model = Lesson
 		fields = '__all__'
-		
+	
+	
 class Module_serializer(serializers.ModelSerializer):
 	class Meta:
 		model = Module

@@ -10,7 +10,11 @@ class lesson_view(viewsets.ModelViewSet):
 	serializer_class = Lesson_serializer
 	permission_classes = [AllowAny]  
 	
-
+class module_view(viewsets.ModelViewSet):
+	queryset = Module.objects.all()
+	serializer_class = Module_serializer
+	permission_classes = [AllowAny]
+	
 class lesson_tracking_view_all(viewsets.ModelViewSet):
 	queryset = Lesson_Tracking.objects.all()
 	serializer_class = lesson_tracking_serializer
@@ -27,7 +31,18 @@ class lesson_tracking_view(viewsets.ModelViewSet):
 		user_id = self.kwargs['id']
 		return Lesson_Tracking.objects.filter(user_id=user_id)
 		
-
+class module_tracking_view_all(viewsets.ModelViewSet):
+	queryset = Module_Tracking.objects.all()
+	serializer_class = module_tracking_serializer
+	permission_classes = [AllowAny]
+	
+class module_tracking_view(viewsets.ModelViewSet):
+	serializer_class = module_tracking_serializer
+	permission_classes = [AllowAny]
+	
+	def get_queryset(self):
+		user_id = self.kwargs['id']
+		return Module_Tracking.objects.filter(user_id=user_id)
 		
 class user_completed_view(viewsets.ModelViewSet):
 	queryset = User_Completion.objects.all()
