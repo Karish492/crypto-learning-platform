@@ -48,3 +48,8 @@ class user_completed_view(viewsets.ModelViewSet):
 	queryset = User_Completion.objects.all()
 	serializer_class = user_completed_serializer
 	permission_classes = [AllowAny]
+	
+class user_progress_view(viewsets.ModelViewSet):
+	queryset = User_Progress.objects.all()
+	serializer_class = User_progress_serializer
+	permission_classes = [AllowAny]

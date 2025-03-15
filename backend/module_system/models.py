@@ -46,6 +46,14 @@ class User_Completion(models.Model):
     	user = models.ForeignKey(User, on_delete=models.CASCADE)
     	completed = models.BooleanField(default=False)
     	completion_date = models.DateTimeField(null=True, blank=True)
+    	
+class User_Progress(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	lesson_completion = models.DecimalField(default=0.0, max_digits=4, decimal_places=2)
+	module_completion = models.DecimalField(default=0.0, max_digits=4, decimal_places=2)
+	
+	def __str__(self):
+		return f'{self.user.username} - Progress'
 
 
 

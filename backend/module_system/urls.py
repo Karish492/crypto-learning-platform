@@ -14,4 +14,5 @@ urlpatterns = [
 	path('api/lesson-tracker/user/<int:id>/', lesson_tracking_view.as_view({'get':'list'})),
 	path('api/module-tracker/', module_tracking_view_all.as_view({'get':'list'})),
 	path('api/module-tracker/user/<int:id>/', module_tracking_view.as_view({'get':'list'})),
+	path('api/user-progress/', user_progress_view.as_view({'get':'list'})),
  ]

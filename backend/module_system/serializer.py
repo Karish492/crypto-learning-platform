@@ -28,3 +28,8 @@ class Module_serializer(serializers.ModelSerializer):
 	class Meta:
 		model = Module
 		fields = '__all__'
+		
+class User_progress_serializer(serializers.ModelSerializer):
+	class Meta:
+		model = User_Progress
+		fields = '__all__'

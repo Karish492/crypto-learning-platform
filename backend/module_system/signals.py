@@ -2,6 +2,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import *
+from django.db import transaction
 
 #https://www.geeksforgeeks.org/how-to-create-and-use-signals-in-django/
 @receiver(post_save, sender=User)
@@ -24,11 +25,16 @@ def create_module_tracking(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Lesson_Tracking)
 def update_module_completion(sender, instance, **kwargs):
-	module = instance.lesson.module
-	lesson_count = module.lesson_set.count()
-	completed_lesson = Lesson_Tracking.objects.filter(user=instance.user, lesson__module=module, completed=True).count()
-	module_tracking= Module_Tracking.objects.filter(user=instance.user, Module=module).get()
-	if lesson_count == completed_lesson:
-		module_tracking.completed=True
-	module_tracking.save()
+	if instance.completed:
+		module = instance.lesson.module
+		lesson_count = module.lesson_set.count()
+		completed_lesson = Lesson_Tracking.objects.filter(user=instance.user, lesson__module=module, completed=True).count()
+		module_tracking = Module_Tracking.objects.filter(user=instance.user, Module=module).get()
+		if lesson_count == completed_lesson:
+			module_tracking.completed=True
+		module_tracking.save()
 
+@receiver(post_save, sender=User)
+def create_user_progress(sender, instance, created, **kwards):
+	if created:
+		User_Progress.objects.create(user=instance)
