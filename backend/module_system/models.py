@@ -18,7 +18,7 @@ class Lesson(models.Model):
 	text = models.TextField()
 	
 	def __str__(self):
-   	     return f' {self.lesson_id} . {self.title}'
+   	     return f' {self.module} - {self.lesson_id} . {self.title}'
 
 class Lesson_Tracking(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
