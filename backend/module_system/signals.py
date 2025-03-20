@@ -65,7 +65,7 @@ def update_user_progress_MODULE(sender, instance, created, **kwargs):
 		user_progress.save()
 
 
-@receiver(post_save, sender=Module_Tracking)
+@receiver(post_save, sender=Lesson_Tracking)
 def update_user_progress_LESSON(sender, instance, created, **kwargs):
 	if instance.completed:	
 		lesson_count = Lesson.objects.all().count()

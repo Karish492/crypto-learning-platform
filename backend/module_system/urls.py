@@ -10,12 +10,13 @@ router.register(r'module', module_view, basename="module")
 router.register(r'module-completion', module_tracking_view_all, basename="module tracking")
 router.register(r'user-progress', user_progress_view, basename="user progress")
 
-#dont use these, use the router ones
+#use these ones for tracking progress. Use routers for lessons & modules
 urlpatterns = [
 	path('api/', include(router.urls)),
-	path('api/lesson-tracker/', lesson_tracking_view_all.as_view({'get':'list'})),
 	path('api/lesson-tracker/user/<int:id>/', lesson_tracking_view.as_view({'get':'list'})),
-	path('api/module-tracker/', module_tracking_view_all.as_view({'get':'list'})),
+	path('api/lesson-tracker/user/<int:id>/lesson/<int:l_id>/', lesson_tracking_specific.as_view({'get':'list'})),
 	path('api/module-tracker/user/<int:id>/', module_tracking_view.as_view({'get':'list'})),
-	path('api/user-progress/', user_progress_view.as_view({'get':'list'})),
+	path('api/module-tracker/user/<int:id>/module/<int:m_id>/', module_tracking_specific.as_view({'get':'list'})),
+	path('api/user-progress/user/<int:id>/', user_progress_specific.as_view({'get':'list'})),
+	path('api/user-completion/user/<int:id>/', user_completion_specific.as_view({'get':'list'})),
  ]

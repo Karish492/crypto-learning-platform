@@ -108,7 +108,7 @@ DATABASES = {
 }
 
 
-# Password validation
+# Password validation (removed for testing)
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 

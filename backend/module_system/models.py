@@ -29,7 +29,7 @@ class Lesson_Tracking(models.Model):
 		unique_together = ('user', 'lesson')
 
 	def __str__(self):
-		return f'{self.user.username}: {self.lesson.title} - Completed: {self.completed}'
+		return f'{self.user.username}: {self.lesson.module_id} - {self.lesson.title} - Completed: {self.completed}'
         	
         	
 class Module_Tracking(models.Model):
