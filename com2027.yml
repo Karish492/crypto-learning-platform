@@ -1,9 +1,7 @@
-project_name: Project Name
+project_name: CryptoSense
 
 project_description: |
-  Short description (100 words) about the web app proposed and developed. You can provide a brief overview of the project here, including which UN's SDGs this project is tackling.
-
-  Line breaks are permitted.
+  This project aims to teach people about the basics of crypto including the risk and rewards of using crypto. This project will be developed using Django and React with the use of external API to gather live information. This project tackles SDG goal 4 by having this website we aim to educate people about using crypto as many people wont be familiar with it. It also tackles goal 8 by teaching people about crypto it can help people make inform decision therefore encouraging thoughtful investment into cryptocurrencies. 
 
 group_members:
   - Ryan Yuen

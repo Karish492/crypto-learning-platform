@@ -3,3 +3,4 @@ djangorestframework
 data-wizard
 django-cors-headers
 djangorestframework-simplejwt
+djoser
