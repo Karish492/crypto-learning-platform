@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-# When adding subapps add it to installed apps
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
@@ -49,8 +49,16 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'djoser',
+    'channels',
     'module_system',
+    'chat_feature',
 ]
+
+CHANNEL_LAYERS = {
+	'default': {
+	'BACKEND': 'channels.layers.InMemoryChannelLayer',},}
+
+ASGI_APPLICATION = 'backend.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
