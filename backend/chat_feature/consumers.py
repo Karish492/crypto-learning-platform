@@ -1,6 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-#authentication has not been addded yet
+
 class ChatConsumer(AsyncWebsocketConsumer):
 	async def connect(self):
 		self.roomGroupName = "general"
@@ -11,7 +11,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 		await self.accept()
 		
 	async def disconnect(self, close_code):
-		await self.channel_name.group_discard(
+		await self.channel_layer.group_discard(
 		self.roomGroupName , 
             	self.channel_name 
 		)
