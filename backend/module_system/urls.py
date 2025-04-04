@@ -4,10 +4,8 @@ from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'lesson', lesson_view, basename="lesson")
-router.register(r'lesson-completion', lesson_tracking_view_all, basename="lesson tracker")
 router.register(r'completion', user_completed_view, basename="completion")
 router.register(r'module', module_view, basename="module")
-router.register(r'module-completion', module_tracking_view_all, basename="module tracking")
 router.register(r'user-progress', user_progress_view, basename="user progress")
 
 #use these ones for tracking progress. Use routers for lessons & modules

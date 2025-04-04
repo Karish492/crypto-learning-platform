@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import *
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -81,6 +81,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT =  { 
 	'AUTH_HEADER_TYPES': ('Bearer',),
+	'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60)
 	}
 	
 ROOT_URLCONF = 'backend.urls'
