@@ -12,7 +12,6 @@ import LayoutWrapper from './components/LayoutWrapper';
 function App() {
   return (
     <Routes>
-      {/* Routes with layout (Navbar etc.) */}
       <Route element={<LayoutWrapper />}>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -21,8 +20,7 @@ function App() {
         <Route path="/modules/:moduleId/lessons/:lessonId" element={<Lesson />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
-
-      {/* Catch-all without layout */}
+      
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

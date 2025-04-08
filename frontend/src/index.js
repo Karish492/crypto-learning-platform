@@ -2,16 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import {QueryClientProvider,QueryClient } from '@tanstack/react-query'; 
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
+
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter> {/* Wrap App with BrowserRouter */}
-      <App />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter> {/* Wrap App with BrowserRouter */}
+        <App />
       </BrowserRouter>
+    </QueryClientProvider> 
   </React.StrictMode>
 );
 
