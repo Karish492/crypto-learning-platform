@@ -15,16 +15,20 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter , URLRouter
+from channels.security.websocket import  AllowedHostsOriginValidator
 from chat_feature import routing
 from chat_feature.middleware import JwtAuthMiddleware 
 
 application = ProtocolTypeRouter(
     {
         "http" : get_asgi_application() , 
-        "websocket" : AuthMiddlewareStack(
+        "websocket" : AllowedHostsOriginValidator(
+            JwtAuthMiddleware(
             URLRouter(
                 routing.websocket_urlpatterns
             )    
+        
+            )
         )
     }
 )
