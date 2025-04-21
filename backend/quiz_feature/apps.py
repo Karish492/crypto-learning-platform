@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class ModuleSystemConfig(AppConfig):
+class QuizFeatureConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'module_system'
+    name = 'quiz_feature'
     def ready(self):
-    	import module_system.signals
+    	import quiz_feature.signals
 
