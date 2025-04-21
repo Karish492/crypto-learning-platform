@@ -43,11 +43,11 @@ class Module_Tracking(models.Model):
 	
         	
 class User_Completion(models.Model):
-    	user = models.ForeignKey(User, on_delete=models.CASCADE)
-    	completed = models.BooleanField(default=False)
-    	completion_date = models.DateField(null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    completion_date = models.DateField(null=True, blank=True)
     	
-    	def __str__(self):
+    def __str__(self):
     		return f'{self.user.username}: Completed: {self.completed}'
     	
 class User_Progress(models.Model):
