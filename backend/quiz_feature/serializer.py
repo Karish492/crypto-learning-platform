@@ -32,11 +32,3 @@ class QuizProgressSerializer(serializers.ModelSerializer):
 		fields = ['user', 'quiz', 'completed', 'score']
 
 
-class QuestionProgressSerializer(serializers.ModelSerializer):
-	user = serializers.StringRelatedField(read_only=True)
-	question = serializers.StringRelatedField(read_only=True)
-	selected_answer = serializers.StringRelatedField()
-
-	class Meta:
-		model = Question_Progress
-		fields = ['user', 'question', 'selected_answer']

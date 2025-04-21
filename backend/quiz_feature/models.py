@@ -39,15 +39,5 @@ class Quiz_Progress(models.Model):
 		return f'{self.user.username}: {self.quiz.title} - Score: {self.score} - Completed: {self.completed}'
         	
         	
-class Question_Progress(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	question = models.ForeignKey(Question, on_delete=models.CASCADE)
-	selected_answer = models.ForeignKey(Answer, on_delete=models.SET_NULL, null=True, blank=True)
-
-	class Meta:
-		unique_together = ('user', 'question')
-
-	def __str__(self):
-		return f'{self.user.username}: {self.question.text} - Selected: {self.selected_answer}'
 
 
