@@ -27,7 +27,7 @@ class Answer(models.Model):
 	def __str__(self):
 		return f'Answer to Q{self.question.question_id}: {self.text}'
 
-class Quiz_Progress(models.Model):
+class Quiz_Tracker(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 	completed = models.BooleanField(default=False)

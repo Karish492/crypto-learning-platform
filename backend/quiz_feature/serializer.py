@@ -23,12 +23,12 @@ class QuizSerializer(serializers.ModelSerializer):
 		fields = ['quiz_id', 'title', 'description', 'questions']
 
 
-class QuizProgressSerializer(serializers.ModelSerializer):
+class QuizTrackerSerializer(serializers.ModelSerializer):
 	user = serializers.StringRelatedField(read_only=True)
 	quiz = serializers.StringRelatedField(read_only=True)
 
 	class Meta:
-		model = Quiz_Progress
+		model = Quiz_Tracker
 		fields = ['user', 'quiz', 'completed', 'score']
 
 

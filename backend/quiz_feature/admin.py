@@ -4,5 +4,5 @@ from .models import *
 admin.site.register(Quiz)
 admin.site.register(Question)
 admin.site.register(Answer)
-admin.site.register(Quiz_Progress)
+admin.site.register(Quiz_Tracker)
 

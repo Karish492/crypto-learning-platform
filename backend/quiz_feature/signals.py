@@ -10,7 +10,7 @@ def create_quiz_tracker(sender, instance, created, **kwargs):
 	if created:
 		quizzes = Quiz.objects.all()
 		for quiz in quizzes:
-			Quiz_Progress.objects.create(user=instance, quiz=quiz, completed=False, score=0.0)
+			Quiz_Tracker.objects.create(user=instance, quiz=quiz, completed=False, score=0.0)
 
 
 
