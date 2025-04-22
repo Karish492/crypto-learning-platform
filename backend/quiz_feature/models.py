@@ -14,10 +14,13 @@ class Quiz(models.Model):
 class Question(models.Model):
 	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 	question_id = models.PositiveIntegerField(primary_key=True)
+	question_number = models.PositiveIntegerField(default=0)
 	text = models.TextField()
 	
+	class Meta:
+		unique_together = ('quiz', 'question_number')
 	def __str__(self):
-   	     return f'{self.quiz} - {self.question_id} . {self.text}'
+   	     return f'{self.quiz.title} - {self.question_id} -Question Number: {self.question_number} . {self.text}'
 	
 class Answer(models.Model):
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)

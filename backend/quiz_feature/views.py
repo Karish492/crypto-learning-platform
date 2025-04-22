@@ -20,8 +20,8 @@ class get_specific_question(viewsets.ModelViewSet):
 
 	def get_queryset(self):
 		quiz_id = self.kwargs['quiz_id']
-		question_id = self.kwargs['question_id']
-		return Question.objects.filter(quiz_id=quiz_id).filter(question_id=question_id)
+		question_number = self.kwargs['question_number']
+		return Question.objects.filter(quiz_id=quiz_id).filter(question_number=question_number)
 
 class answer_view(viewsets.ModelViewSet):
 	queryset = Answer.objects.all()
