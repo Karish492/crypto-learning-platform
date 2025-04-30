@@ -1,12 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import Modules from './pages/Modules';
 import Module from './pages/Module';
-import Lesson from './pages/Lesson';
 import Profile from './pages/Profile';
+import QuizPage from './pages/QuizPage';
 import LayoutWrapper from './components/LayoutWrapper';
 
 function App() {
@@ -14,11 +13,11 @@ function App() {
     <Routes>
       <Route element={<LayoutWrapper />}>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/modules" element={<Modules />} />
-        <Route path="/modules/:moduleId" element={<Module />} />
-        <Route path="/modules/:moduleId/lessons/:lessonId" element={<Lesson />} />
+        <Route path="/modules/:id" element={<Module />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/quiz/:id" element={<QuizPage />} />
+
       </Route>
       
       <Route path="*" element={<NotFound />} />

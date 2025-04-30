@@ -1,5 +1,7 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 
 const Home = () => {
@@ -12,10 +14,13 @@ const Home = () => {
     },
 
     });
-  if (isLoading) return <p>Loading news...</p>;
-  if (error) return <p>Error loading news: {error.message}</p>;
+  if (isLoading) return <Loading message = "Loading News..." />;
+
+  if (error) return <Error message = "Error : Failed to load the data. Please try again." />;
   
   const newsItems = data.articles;
+
+
   
   return (
     <div className="container mx-auto p-3">
@@ -47,17 +52,18 @@ const Home = () => {
 
       <div className="mt-15 overflow-x-auto snap-x snap-mandatory">
         <div className="flex space-x-6 p-5">
-          {newsItems.slice(0, 6).map((item, index) => (
+          {newsItems.slice(0, 15).map((item, index) => (
             <div key={index} className="flex-none w-80 snap-start">
               <div className="bg-white p-4 rounded-lg shadow-lg">
                   <img
-                    src={item.urlToImage}
+                    src={item.urlToImage || 'no_image.jpg'}
                     alt={item.title}
                     className="w-full h-40 object-cover rounded-md mb-3"
                   />
                 <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
                 <p className="text-sm mb-2">
-                  {item.description.slice(0, 100) + '...'}
+                  {item.description ? item.description.slice(0, 100) + '...' : 'No description available'}
+
                 </p>
                 <a
                   href={item.url}
