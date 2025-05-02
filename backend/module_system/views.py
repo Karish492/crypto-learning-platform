@@ -5,12 +5,12 @@ from .models import *
 from .serializer import *
 
 # Create your views here. 
-class lesson_view(viewsets.ModelViewSet):
+class lesson_view(viewsets.ReadOnlyModelViewSet):
 	queryset = Lesson.objects.all()
 	serializer_class = Lesson_serializer
 	permission_classes = [AllowAny]  
 	
-class module_view(viewsets.ModelViewSet):
+class module_view(viewsets.ReadOnlyModelViewSet):
 	queryset = Module.objects.all()
 	serializer_class = Module_serializer
 	permission_classes = [AllowAny]
@@ -90,3 +90,11 @@ class user_completion_specific(viewsets.ModelViewSet):
 	def get_queryset(self):
 		user_id = self.kwargs['id']
 		return User_Completion.objects.filter(user_id=user_id)
+
+class module_lessons(viewsets.ReadOnlyModelViewSet):
+	serializer_class = Lesson_serializer
+	permission_classes = [AllowAny]
+
+	def get_queryset(self):
+		module_id = self.kwargs['id']
+		return Lesson.objects.filter(module=module_id)
