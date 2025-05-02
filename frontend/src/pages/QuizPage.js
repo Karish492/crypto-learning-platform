@@ -1,76 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Button from '../components/Button';
 
-const allQuizzes = {
-    1: [
-      {
-        question: "What is blockchain?",
-        options: ["A database", "A type of cloud", "A currency", "A game"],
-        answer: "A database"
-      }
-    ],
-    2: [
-      {
-        question: "What is Bitcoin?",
-        options: ["Programming language", "Cryptocurrency", "Bank", "Company"],
-        answer: "Cryptocurrency"
-      }
-    ]
-  };
+
 
 const QuizPage = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [score, setScore] = useState(0);
-  const [message, setMessage] =useState(null);
+  const [message, setMessage] = useState(null);
   const [showScore, setShowScore] = useState(false);
   const { id } = useParams();
-  const quizData = allQuizzes[id] || [];
+  
+  const [data, setData] = useState([])
+  const [questions, setQuestions] =useState([])
+  const[error, setError] = useState(null)
+  
+  useEffect(() => {
+    
+    axios.get(`http://localhost:8000/api/quiz/${id}/`)
+      .then(response => {  
+        setData(response.data);
+        setQuestions(response.data.questions)
+      
+      })
+      .catch(err => {
+        setError(err);               
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
+  if (questions.length === 0 || !questions) {
+    return <p>Loading</p>
+  } 
+ 
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
   };
 
   const handleNext = () => {
-    if (selectedOption === quizData[currentQuestion].answer) {
+    if (selectedOption.is_correct === true) {
       setScore(score + 1);
       setMessage("Well Done you got it correct! ")
 
     }
-    else{
+    else {
       setMessage("Incorrect Answer ! ")
     }
 
     setSelectedOption("");
 
-    if (currentQuestion + 1 < quizData.length) {
+    if (currentQuestion + 1 < questions.length) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowScore(true);
     }
+    setTimeout(() => {setMessage("");
+
+    }, 2000);
+  
+     
   };
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
       {showScore ? (
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Your Score: {score} / {quizData.length}</h2>
-          <p className="text-lg">{message}</p>
+          <h2 className="text-2xl font-bold mb-4">Your Score: {score} / {questions.length}</h2>
+          <Button to={"/"} text="Home" className="p-10" />
         </div>
       ) : (
         <div>
-          <h3 className="text-xl font-semibold mb-4">{quizData[currentQuestion].question}</h3>
+          <h1>Quiz: {data.title} </h1>
+          <h3 className="text-xl font-semibold mb-4">Q{questions[currentQuestion].question_number} : {questions[currentQuestion].text}</h3>
           <ul className="space-y-3">
-            {quizData[currentQuestion].options.map((option, idx) => (
+            {questions[currentQuestion].answers.map((option, idx) => (
               <li
                 key={idx}
-                className={`p-3 border rounded cursor-pointer hover:bg-blue-100 ${
-                  selectedOption === option ? "bg-blue-200" : ""
-                }`}
+                className={`p-3 border rounded cursor-pointer hover:bg-blue-100 ${selectedOption === option ? "bg-blue-200" : ""
+                  }`}
                 onClick={() => handleOptionClick(option)}
               >
-                {option}
+                {option.text}
               </li>
             ))}
           </ul>
@@ -79,8 +92,11 @@ const QuizPage = () => {
             onClick={handleNext}
             disabled={!selectedOption}
           >
-            {currentQuestion + 1 < quizData.length ? "Next" : "Submit"}
+            {currentQuestion + 1 < questions.length ? "Next" : "Submit"}
           </button>
+          <br></br><b>{message}</b>
+
+          <p>Questions: {currentQuestion+1}/{questions.length}</p>
         </div>
       )}
     </div>

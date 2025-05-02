@@ -15,12 +15,16 @@ const Module = () => {
   const { id } = useParams();
   const [data1, setData1] = useState([])
   const [CurrentLesson, setCurrentLesson] = useState(0)
+  const [error1, setError1] = useState(null)
   useEffect(() => {
     axios.get(`http://localhost:8000/api/module/${id}/lessons/`).then(response => {
       setData1(response.data);
 
-    })
-  })
+    }).catch(err => {
+      setError1(err);               
+      console.error('Error fetching data:', error1);
+    });
+  }, []);
   // Pass data from Modules to Module using props instead of mock data this is just for testing and front end.
   const { isLoading, error, data } = useQuery({
     queryKey: ['modules'],
