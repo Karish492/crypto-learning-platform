@@ -7,6 +7,8 @@ import Module from './pages/Module';
 import Profile from './pages/Profile';
 import QuizPage from './pages/QuizPage';
 import LayoutWrapper from './components/LayoutWrapper';
+import Login from './pages/Login';  
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -17,9 +19,11 @@ function App() {
         <Route path="/modules/:id" element={<Module />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/quiz/:id" element={<QuizPage />} />
-
       </Route>
-      
+
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

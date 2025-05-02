@@ -22,6 +22,9 @@ const Navbar = () => {
         <Link to="/profile" className="text-gray-700 hover:text-green-600">
           Profile
         </Link>
+        <Link to="/login" className="text-gray-700 hover:text-green-600">
+          Login
+        </Link> 
       </div>
     </nav>
   );
