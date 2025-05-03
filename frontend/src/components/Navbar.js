@@ -3,6 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+const token = localStorage.getItem("access_token")
+const userId = localStorage.getItem("user_id")
+const username = localStorage.getItem("username")
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
       <Link to="/" className="text-2xl font-bold text-blue-600">
@@ -25,9 +28,16 @@ const Navbar = () => {
         <Link to="/profile" className="text-gray-700 hover:text-green-600">
           Profile
         </Link>
+        {!token || !userId ?
         <Link to="/login" className="text-gray-700 hover:text-green-600">
           Login
-        </Link> 
+          </Link>
+        :
+        <Link to="/logout" className="text-gray-700 hover:text-green-600">
+          Logout: {username}
+        </Link>
+        } 
+       
       </div>
     </nav>
   );

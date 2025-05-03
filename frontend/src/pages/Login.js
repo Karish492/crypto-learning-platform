@@ -5,14 +5,13 @@ import axios from 'axios';
 
 
 const Login = () => {
-  const [userID, setUserId] = useState('')
-  const [username, setUsername] = useState('')
+
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
   const [message, setMessage] = useState('')
-  const [message1, setMessage1] = useState('')
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,18 +26,25 @@ const Login = () => {
       localStorage.setItem('refresh_token', signin.data.refresh)
       axios.defaults.headers.common['Authorization'] = `Bearer ${signin.data.access}`
       const getUser = await axios.get('http://localhost:8000/api/accounts/users/me/')
-      setUserId(getUser.data.id)
+
       localStorage.setItem('user_id',getUser.data.id);
       localStorage.setItem('username',getUser.data.username)
-      setUsername(getUser.data.username)
-      localStorage.setItem('get_username',getUser.data.username);
+      
 
       window.location.href = "/"
       
 
   } catch (err) {
-      setMessage("invalid credentials")
+    if (err.status === 400){
+      setMessage("All Fields Must Be Entered")
       console.log(err.response);
+    }
+    if (err.status === 401){
+      setMessage("Invalid Credentials / Account Doesn't Exist")
+    }
+    else {
+      setMessage( err.message)
+    }
   }
   };
   
@@ -50,7 +56,6 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-      <p className="text-center">{message1}</p>
       <br></br>
         <h2 className="text-2xl font-semibold text-center text-blue-600 mb-6">Log In</h2>
         <form onSubmit={handleSubmit}>

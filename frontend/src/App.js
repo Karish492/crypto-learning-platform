@@ -10,6 +10,7 @@ import LayoutWrapper from './components/LayoutWrapper';
 import Login from './pages/Login';  
 import Signup from './pages/Signup';
 import Chat from './pages/Chat';
+import Logout from './pages/Logout';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       </Route>
       
       <Route path="/login" element={<Login />} />
+      <Route path="logout" element={<Logout />} />
       <Route path="/signup" element={<Signup />} />
 
       <Route path="*" element={<NotFound />} />
