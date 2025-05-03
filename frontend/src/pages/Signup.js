@@ -1,21 +1,41 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
-    age: "",
-    dob: "",
   });
+  const [UsernameMessage, setUsernameMessage] = useState("")
+  const [PasswordMessage, setPasswordMessage] = useState("")
+  const [message, setMessage] = useState("")
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      await axios.post('http://localhost:8000/api/accounts/users/', formData)
+      window.location.href="/login"
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.password) {
+        console.log(err.response.data.password)
+        setPasswordMessage(err.response.data.password)
+        }
+        else if (err.response.data.username) {
+          console.log(err.response.data.username)
+          setMessage(err.response.data.username)
+        }
+        else {
+          console.log("something went wrong")
+          setMessage("something went wrong")
+        }
+        // the api sends back error message for either username or password 
+      }      
+    }
   };
 
   return (
@@ -26,16 +46,17 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Full Name
+              Username*
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="username"
+              name="username"
+              required
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={formData.name}
+              value={formData.username}
               onChange={handleChange}
-              placeholder="Enter your full name"
+              placeholder="Enter your username"
             />
           </div>
 
@@ -56,7 +77,7 @@ const SignUp = () => {
 
           <div className="mb-4">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
+              Password*
             </label>
             <input
               type="password"
@@ -64,12 +85,14 @@ const SignUp = () => {
               name="password"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={formData.password}
+              required
               onChange={handleChange}
               placeholder="Enter your password"
             />
           </div>
 
-          <div className="mb-4">
+          {/* backend does not support  */}
+          {/* <div className="mb-4">
             <label htmlFor="age" className="block text-sm font-medium text-gray-700">
               Age
             </label>
@@ -96,8 +119,8 @@ const SignUp = () => {
               value={formData.dob}
               onChange={handleChange}
             />
-          </div>
-
+          </div> */}
+          
           <div className="flex justify-center">
             <button
               type="submit"
@@ -107,6 +130,13 @@ const SignUp = () => {
             </button>
           </div>
         </form>
+        {message.length > 0 && (
+        <div>
+          {message.map((message, index) => (
+            <p key={index}>{message}</p>
+          ))}
+        </div>
+      )}
 
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">

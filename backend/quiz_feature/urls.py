@@ -12,6 +12,6 @@ router.register(r'quiz-tracker', quiz_tracking_view, basename="quiz progress")
 urlpatterns = [
 	path('api/', include(router.urls)),
 	path('api/quiz-tracker/user/<int:id>/', user_quiz_progress.as_view({'get': 'list'})),
-	path('api/quiz-tracker/user/<int:id>/quiz/<int:quiz_id>/', quiz_tracking_specific.as_view({'get': 'list'})),
+	path('api/quiz-tracker/user/<int:user>/quiz/<int:quiz_id>/', quiz_tracking_specific.as_view({'get': 'list', 'patch':'update'})),
     path('api/quiz/<int:quiz_id>/<int:question_number>/', get_specific_question.as_view({'get':'list'})), #to get specific question - first is quiz id and second is to get question from the quiz
 ]

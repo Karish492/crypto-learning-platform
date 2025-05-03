@@ -46,8 +46,9 @@ class user_quiz_progress(viewsets.ModelViewSet):
 class quiz_tracking_specific(viewsets.ModelViewSet):
 	serializer_class = QuizTrackerSerializer
 	permission_classes = [AllowAny]
+	lookup_field ="user"
 
 	def get_queryset(self):
-		user_id = self.kwargs['id']
+		user_id = self.kwargs['user']
 		quiz_id = self.kwargs['quiz_id']
 		return Quiz_Tracker.objects.filter(user_id=user_id, quiz_id=quiz_id)

@@ -1,40 +1,77 @@
 // src/pages/Login.js
-import React, { useState } from 'react';
+import React, { use, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 const Login = () => {
+  const [userID, setUserId] = useState('')
+  const [username, setUsername] = useState('')
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
+  const [message, setMessage] = useState('')
+  const [message1, setMessage1] = useState('')
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try{
+      const signin = await axios.post('http://localhost:8000/api/accounts/jwt/create', formData);
+      
+      localStorage.setItem('access_token', signin.data.access)
+      localStorage.setItem('refresh_token', signin.data.refresh)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${signin.data.access}`
+      const getUser = await axios.get('http://localhost:8000/api/accounts/users/me/')
+      setUserId(getUser.data.id)
+      localStorage.setItem('user_id',getUser.data.id);
+      localStorage.setItem('username',getUser.data.username)
+      setUsername(getUser.data.username)
+      localStorage.setItem('get_username',getUser.data.username);
+
+      window.location.href = "/"
+      
+
+  } catch (err) {
+      setMessage("invalid credentials")
+      console.log(err.response);
+  }
   };
+  
+    const login_message = localStorage.getItem("login_message")
+    useEffect(() => {
+      if (login_message) {
+        setMessage1("You need to be logged in!");
+      }
+      else if (!userID) {
+        setMessage1("")
+
+      }
+    }, [login_message]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+      <p className="text-center">{message1}</p>
+      <br></br>
         <h2 className="text-2xl font-semibold text-center text-blue-600 mb-6">Log In</h2>
-
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email Address
+            <label htmlFor="text" className="block text-sm font-medium text-gray-700">
+              Username
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="username"
+              id="username"
+              name="username"
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={formData.email}
+              value={formData.username}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter your username"
             />
           </div>
 
@@ -61,8 +98,10 @@ const Login = () => {
             >
               Log In
             </button>
+            
           </div>
         </form>
+        <p className="text-center">{message}</p>
 
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">

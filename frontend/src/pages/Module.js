@@ -12,19 +12,32 @@ import axios from 'axios' // this is so frontend can send data to backend
 ]; */
 
 const Module = () => {
+
+
   const { id } = useParams();
   const [data1, setData1] = useState([])
   const [CurrentLesson, setCurrentLesson] = useState(0)
   const [error1, setError1] = useState(null)
+  const token = localStorage.getItem('access_token');
+  const username = localStorage.getItem('get_username');
+  const userId = localStorage.getItem('user_id')
+
+
+
   useEffect(() => {
+    if (!token || !username) {
+      localStorage.setItem("login_message", true)
+
+      window.location.href = "/login"
+      return;
+    }
     axios.get(`http://localhost:8000/api/module/${id}/lessons/`).then(response => {
       setData1(response.data);
-
     }).catch(err => {
-      setError1(err);               
+      setError1(err);
       console.error('Error fetching data:', error1);
     });
-  }, []);
+  }, [error1, id]);
   // Pass data from Modules to Module using props instead of mock data this is just for testing and front end.
   const { isLoading, error, data } = useQuery({
     queryKey: ['modules'],
@@ -36,6 +49,7 @@ const Module = () => {
 
   });
 
+
   if (isLoading) {
     return <h1> Loading...</h1>
   }
@@ -53,16 +67,44 @@ const Module = () => {
     return 'An Error Has Occured: ' + error.message
   }
 
-  if (data1.length == 0) {
+  if (data1.length === 0) {
     return "An Error Has Occurred:"
   }
-  const handleNext = (async) => {
+  const clicked = async () => {
+    handleNext();
+    updateScore();
+  }
+  const handleNext = async () => {
     // Move to the next lesson but not for last lesson
     if (CurrentLesson < data1.length - 1) {
       setCurrentLesson((lesson) => lesson + 1);
     }
     //this is where it will update progress
   };
+
+  const updateScore = async () => {
+    const lesson_id1 = data1[CurrentLesson].lesson_id
+    console.log(lesson_id1)
+    try {
+      await axios.patch(`http://localhost:8000/api/lesson-tracker/user/${userId}/lesson/${lesson_id1}/`, {
+        completed: true,
+        user: userId,
+        lesson: lesson_id1,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      },
+      );
+    } catch (error) {
+      console.log(error.message)
+    }
+
+  }
+  const completed = async () => {
+    updateScore()
+    window.location.href = `/quiz/${data.module_id}`
+  }
   return (
     <div className="flex flex-row min-h-screen p-6 gap-6">
       <div className="flex-1 bg-white rounded-lg shadow-lg p-6">
@@ -75,9 +117,9 @@ const Module = () => {
 
         <br></br><br></br>
         {CurrentLesson < data1.length - 1 ? (
-          <button onClick={handleNext} className={`bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition`}>Next </button>
+          <button onClick={clicked} className={`bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition`}>Next </button>
         ) : (
-            <Button to={`/quiz/${data.module_id}`} text="Start Quiz" className="p-10" />
+          <button onClick={completed} className={`bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition`}>Start Quiz </button>
         )}
       </div>
 

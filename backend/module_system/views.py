@@ -33,9 +33,10 @@ class lesson_tracking_view(viewsets.ModelViewSet):
 class lesson_tracking_specific(viewsets.ModelViewSet):
 	serializer_class = lesson_tracking_serializer
 	permission_classes = [AllowAny]
+	lookup_field = 'user'
 	
 	def get_queryset(self):
-		user_id = self.kwargs['id']
+		user_id = self.kwargs['user']
 		lesson_id = self.kwargs['l_id']
 		return Lesson_Tracking.objects.filter(user_id=user_id).filter(lesson=lesson_id)	
 

@@ -12,29 +12,37 @@ const QuizPage = () => {
   const [message, setMessage] = useState(null);
   const [showScore, setShowScore] = useState(false);
   const { id } = useParams();
-  
+
   const [data, setData] = useState([])
-  const [questions, setQuestions] =useState([])
-  const[error, setError] = useState(null)
-  
+  const [questions, setQuestions] = useState([])
+  const [error, setError] = useState(null)
+  const token = localStorage.getItem('access_token');
+  const username = localStorage.getItem('get_username');
+  const userId = localStorage.getItem("user_id")
+
   useEffect(() => {
-    
+    if (!token || !username) {
+      localStorage.setItem("login_message", true)
+
+      window.location.href = "/login"
+      return;
+    }
     axios.get(`http://localhost:8000/api/quiz/${id}/`)
-      .then(response => {  
+      .then(response => {
         setData(response.data);
         setQuestions(response.data.questions)
-      
+
       })
       .catch(err => {
-        setError(err);               
+        setError(err);
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [error, id]);
 
   if (questions.length === 0 || !questions) {
     return <p>Loading</p>
-  } 
- 
+  }
+
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -57,19 +65,44 @@ const QuizPage = () => {
     } else {
       setShowScore(true);
     }
-    setTimeout(() => {setMessage("");
+    setTimeout(() => {
+      setMessage("");
 
     }, 2000);
-  
-     
+
+
   };
+  const completed = () => {
+    updateScore();
+    window.location.href = "/"
+  }
+  const updateScore = async () => {
+    try {
+      const percentage = Math.round((score / questions.length) * 100)
+      console.log(percentage)
+      await axios.patch(`http://localhost:8000/api/quiz-tracker/user/${userId}/quiz/${id}/`, {
+        completed: true,
+        score: percentage,
+        user: userId,
+        quiz: id,
+
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
       {showScore ? (
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Your Score: {score} / {questions.length}</h2>
-          <Button to={"/"} text="Home" className="p-10" />
+          <h2 className="text-2xl font-bold mb-4">Your Score: {score} / {questions.length}:  </h2>
+          <button onClick={completed} className={`bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition`}> Home </button>
+
         </div>
       ) : (
         <div>
@@ -96,7 +129,7 @@ const QuizPage = () => {
           </button>
           <br></br><b>{message}</b>
 
-          <p>Questions: {currentQuestion+1}/{questions.length}</p>
+          <p>Questions: {currentQuestion + 1}/{questions.length}</p>
         </div>
       )}
     </div>
