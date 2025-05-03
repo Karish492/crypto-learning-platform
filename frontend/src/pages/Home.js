@@ -14,13 +14,15 @@ const Home = () => {
     },
 
     });
+
+ 
   if (isLoading) return <Loading message = "Loading News..." />;
 
   if (error) return <Error message = "Error : Failed to load the data. Please try again." />;
   
   const newsItems = data.articles;
-
-
+    
+  
   
   return (
     <div className="container mx-auto p-3">
