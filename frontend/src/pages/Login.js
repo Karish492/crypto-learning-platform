@@ -44,13 +44,7 @@ const Login = () => {
   
     const login_message = localStorage.getItem("login_message")
     useEffect(() => {
-      if (login_message) {
-        setMessage1("You need to be logged in!");
-      }
-      else if (!userID) {
-        setMessage1("")
-
-      }
+  
     }, [login_message]);
 
   return (

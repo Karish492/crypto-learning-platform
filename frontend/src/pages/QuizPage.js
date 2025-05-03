@@ -22,8 +22,6 @@ const QuizPage = () => {
 
   useEffect(() => {
     if (!token || !username) {
-      localStorage.setItem("login_message", true)
-
       window.location.href = "/login"
       return;
     }
