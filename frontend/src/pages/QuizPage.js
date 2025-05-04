@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Button from '../components/Button';
+
 
 
 
@@ -17,7 +17,7 @@ const QuizPage = () => {
   const [questions, setQuestions] = useState([])
   const [error, setError] = useState(null)
   const token = localStorage.getItem('access_token');
-  const username = localStorage.getItem('get_username');
+  const username = localStorage.getItem('username');
   const userId = localStorage.getItem("user_id")
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const QuizPage = () => {
         setError(err);
         console.error('Error fetching data:', error);
       });
-  }, [error, id]);
+  }, [error, id, token, username]);
 
   if (questions.length === 0 || !questions) {
     return <p>Loading</p>

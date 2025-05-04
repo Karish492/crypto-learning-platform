@@ -29,6 +29,7 @@ const Login = () => {
 
       localStorage.setItem('user_id',getUser.data.id);
       localStorage.setItem('username',getUser.data.username)
+      localStorage.setItem('email', getUser.data.email)
       
 
       window.location.href = "/"

@@ -6,7 +6,8 @@ const ChatPage = () => {
   const socketRef = useRef(null);
   const [messageToUser, setMessageToUser] = useState("")
   const token = localStorage.getItem('access_token');
-  const username = localStorage.getItem('get_username');
+  const username = localStorage.getItem('username');
+  
 
   useEffect(() => {
     if (!token || !username) {

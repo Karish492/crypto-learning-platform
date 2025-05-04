@@ -19,8 +19,9 @@ const Module = () => {
   const [CurrentLesson, setCurrentLesson] = useState(0)
   const [error1, setError1] = useState(null)
   const token = localStorage.getItem('access_token');
-  const username = localStorage.getItem('get_username');
+  const username = localStorage.getItem('username');
   const userId = localStorage.getItem('user_id')
+  const email = localStorage.getItem('email')
 
 
 
