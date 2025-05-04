@@ -17,7 +17,7 @@ services:
       context: ./frontend
     container_name: frontend-react
     ports:
-    - "3000:3000"
+    - "5000:5000"
     depends_on:
       - backend
 
