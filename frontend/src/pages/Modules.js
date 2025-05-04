@@ -6,7 +6,7 @@ const Modules = () => {
     const {isLoading, error, data} = useQuery({
       queryKey: ['modules'],
       queryFn: async () => {
-          const response = await fetch("http://localhost:8000/api/module/");
+          const response = await fetch(`${hostname}/api/module/`);
           if (!response.ok) throw new Error('Network response was not ok');
 
           return response.json();
