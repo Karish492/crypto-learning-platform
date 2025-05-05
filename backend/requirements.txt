@@ -6,3 +6,4 @@ djangorestframework-simplejwt
 djoser
 daphne 
 channels
+requests

@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include('module_system.urls')),
     path('chat/', include('chat_feature.urls')),
     path('', include('quiz_feature.urls')),
+    path('news/', include('news.urls')),
 ]

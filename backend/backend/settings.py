@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'module_system',
     'chat_feature',
     'quiz_feature',
+    'news',
 ]
 
 CHANNEL_LAYERS = {

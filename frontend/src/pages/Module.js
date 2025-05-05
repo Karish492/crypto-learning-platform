@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Error from '../components/Error';
-import Button from '../components/Button';
+
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios' // this is so frontend can send data to backend
 //mock data for module page to see how it looks etc.
@@ -21,7 +21,7 @@ const Module = () => {
   const token = localStorage.getItem('access_token');
   const username = localStorage.getItem('username');
   const userId = localStorage.getItem('user_id')
-  const email = localStorage.getItem('email')
+ 
 
 
 
@@ -36,7 +36,7 @@ const Module = () => {
       setError1(err);
       console.error('Error fetching data:', error1);
     });
-  }, [error1, id]);
+  }, [error1, id, token, username]);
   // Pass data from Modules to Module using props instead of mock data this is just for testing and front end.
   const { isLoading, error, data } = useQuery({
     queryKey: ['modules'],

@@ -8,7 +8,7 @@ const Home = () => {
   const {isLoading, data, error} = useQuery({
     queryKey: ['news'],
     queryFn: async () => {
-        const response = await fetch(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=f23b97dffae445f0b2ed00fc5f353ddf`);
+        const response = await fetch("http://localhost:8000/news/");
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     },
