@@ -19,9 +19,6 @@ const username = localStorage.getItem("username")
         <Link to="/modules" className="text-gray-700 hover:text-green-600">
           Modules
         </Link>
-        <Link to="/quiz" className="text-gray-700 hover:text-green-600">
-          Quizzes
-        </Link>
         <Link to="/chat" className="text-gray-700 hover:text-green-600">
         Chat
         </Link>
