@@ -41,7 +41,7 @@ const Module = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['modules'],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:8000/api/module/${id}`);
+      const response = await fetch(`http://localhost:8000/api/module/${id}/`);
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     },
