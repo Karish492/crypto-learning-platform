@@ -7,10 +7,11 @@ import Error from '../components/Error';
 
 const Home = () => {
   const [newsItems, setNews] = useState([])
+  const apiUrl = process.env.REACT_APP_API_URL;
   const {isLoading, data, error} = useQuery({
     queryKey: ['news'],
     queryFn: async () => {
-        const response = await fetch(`http://localhost:8000/news/`);
+        const response = await fetch(`${apiUrl}/api/news/`);
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     },

@@ -17,7 +17,8 @@ const ChatPage = () => {
     } //if user is not logged in they are redirected to login page
 
     // Connect WebSocket with token in query string
-    const ws = new WebSocket(`ws://localhost:8000/chat/?token=${token}`);
+    const apiUrl = process.env.REACT_APP_WS_URL;
+    const ws = new WebSocket(`${apiUrl}/chat/?token=${token}`);
     socketRef.current = ws;
 
     ws.onopen = () => {

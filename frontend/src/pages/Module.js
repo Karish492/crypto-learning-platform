@@ -4,12 +4,7 @@ import Error from '../components/Error';
 
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios' // this is so frontend can send data to backend
-//mock data for module page to see how it looks etc.
-/*const modules = [
-  { id: 1, name: "Intro to Blockchain", description: "Learn about blockchain basics." },
-  { id: 2, name: "Smart Contracts", description: "Understanding smart contracts." },
-  { id: 3, name: "DeFi", description: "Explore Decentralized Finance." },
-]; */
+
 
 const Module = () => {
 
@@ -21,7 +16,7 @@ const Module = () => {
   const token = localStorage.getItem('access_token');
   const username = localStorage.getItem('username');
   const userId = localStorage.getItem('user_id')
- 
+  const apiUrl = process.env.REACT_APP_API_URL;
 
 
 
@@ -30,7 +25,7 @@ const Module = () => {
       window.location.href = "/login"
       return;
     }
-    axios.get(`http://localhost:8000/api/module/${id}/lessons/`).then(response => {
+    axios.get(`${apiUrl}/api/module/${id}/lessons/`).then(response => {
       setData1(response.data);
     }).catch(err => {
       setError1(err);
@@ -41,7 +36,7 @@ const Module = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['modules'],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:8000/api/module/${id}/`);
+      const response = await fetch(`${apiUrl}/api/module/${id}/`);
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     },
@@ -85,7 +80,7 @@ const Module = () => {
     const lesson_id1 = data1[CurrentLesson].lesson_id
     console.log(lesson_id1)
     try {
-      await axios.patch(`http://localhost:8000/api/lesson-tracker/user/${userId}/lesson/${lesson_id1}/`, {
+      await axios.patch(`${apiUrl}/api/lesson-tracker/user/${userId}/lesson/${lesson_id1}/`, {
         completed: true,
         user: userId,
         lesson: lesson_id1,

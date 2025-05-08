@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 const SignUp = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -17,7 +18,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/accounts/users/', formData)
+      await axios.post(`${apiUrl}/api/accounts/users/`, formData)
       window.location.href="/login"
     } catch (err) {
       if (err.response) {

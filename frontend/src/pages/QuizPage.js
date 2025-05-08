@@ -19,13 +19,13 @@ const QuizPage = () => {
   const token = localStorage.getItem('access_token');
   const username = localStorage.getItem('username');
   const userId = localStorage.getItem("user_id")
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     if (!token || !username) {
       window.location.href = "/login"
       return;
     }
-    axios.get(`http://localhost:8000/api/quiz/${id}/`)
+    axios.get(`${apiUrl}/api/quiz/${id}/`)
       .then(response => {
         setData(response.data);
         setQuestions(response.data.questions)
@@ -78,7 +78,7 @@ const QuizPage = () => {
     try {
       const percentage = Math.round((score / questions.length) * 100)
       console.log(percentage)
-      await axios.patch(`http://localhost:8000/api/quiz-tracker/user/${userId}/quiz/${id}/`, {
+      await axios.patch(`${apiUrl}/api/quiz-tracker/user/${userId}/quiz/${id}/`, {
         completed: true,
         score: percentage,
         user: userId,

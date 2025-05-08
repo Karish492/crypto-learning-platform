@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ModuleCards from '../components/ModuleCard';
 import { useQuery } from '@tanstack/react-query';
+
 const Modules = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
     const {isLoading, error, data} = useQuery({
       queryKey: ['modules'],
       queryFn: async () => {
-          const response = await fetch(`http://localhost:8000/api/module/`);
+          const response = await fetch(`${apiUrl}/api/module/`);
           if (!response.ok) throw new Error('Network response was not ok');
 
           return response.json();

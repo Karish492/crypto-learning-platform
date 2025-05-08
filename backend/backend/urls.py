@@ -23,7 +23,7 @@ urlpatterns = [
     path('api/accounts/', include('djoser.urls')),
     path('api/accounts/', include('djoser.urls.jwt')),
     path('', include('module_system.urls')),
-    path('chat/', include('chat_feature.urls')),
+    path('api/chat/', include('chat_feature.urls')),
     path('', include('quiz_feature.urls')),
-    path('news/', include('news.urls')),
+    path('api/news/', include('news.urls')),
 ]
