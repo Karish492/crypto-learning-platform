@@ -27,19 +27,19 @@ const Profile = () => {
       return;
     }
     //getting the modules completed
-    axios.get(`${apiUrl}/api/module-tracker/user/${userId}/`).then(modules_completion => {
+    axios.get(`http://localhost:8000/api/module-tracker/user/${userId}/`).then(modules_completion => {
       setModuleData(modules_completion.data);
     }).catch(err => {
       console.log(err.response)
     });
     //getting the course completion
-    axios.get(`${apiUrl}/api/user-progress/${userId}/`).then(completion_rate => {
+    axios.get(`http://localhost:8000/api/user-progress/${userId}/`).then(completion_rate => {
       setCourseCompletion(completion_rate.data.lesson_completion);
     }).catch(err => {
       console.log(err.response)
     });
      //getting the quiz taken
-     axios.get(`${apiUrl}/api/quiz-tracker/user/${userId}/`).then(quiz_completion => {
+     axios.get(`http://localhost:8000/api/quiz-tracker/user/${userId}/`).then(quiz_completion => {
       setQuizData(quiz_completion.data);
     }).catch(err => {
       console.log(err.response)

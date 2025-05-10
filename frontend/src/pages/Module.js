@@ -25,7 +25,7 @@ const Module = () => {
       window.location.href = "/login"
       return;
     }
-    axios.get(`${apiUrl}/api/module/${id}/lessons/`).then(response => {
+    axios.get(`http://localhost:8000/api/module/${id}/lessons/`).then(response => {
       setData1(response.data);
     }).catch(err => {
       setError1(err);
@@ -36,7 +36,7 @@ const Module = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['modules'],
     queryFn: async () => {
-      const response = await fetch(`${apiUrl}/api/module/${id}/`);
+      const response = await fetch(`http://localhost:8000/api/module/${id}/`);
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
     },

@@ -18,7 +18,7 @@ const ChatPage = () => {
 
     // Connect WebSocket with token in query string
     const apiUrl = process.env.REACT_APP_WS_URL;
-    const ws = new WebSocket(`${apiUrl}/chat/?token=${token}`);
+    const ws = new WebSocket(`http://localhost:8000/api/chat/?token=${token}`);
     socketRef.current = ws;
 
     ws.onopen = () => {

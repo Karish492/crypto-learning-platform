@@ -25,7 +25,7 @@ const QuizPage = () => {
       window.location.href = "/login"
       return;
     }
-    axios.get(`${apiUrl}/api/quiz/${id}/`)
+    axios.get(`http://localhost:8000/api/quiz/${id}/`)
       .then(response => {
         setData(response.data);
         setQuestions(response.data.questions)
@@ -78,7 +78,7 @@ const QuizPage = () => {
     try {
       const percentage = Math.round((score / questions.length) * 100)
       console.log(percentage)
-      await axios.patch(`${apiUrl}/api/quiz-tracker/user/${userId}/quiz/${id}/`, {
+      await axios.patch(`http://localhost:8000/api/quiz-tracker/user/${userId}/quiz/${id}/`, {
         completed: true,
         score: percentage,
         user: userId,

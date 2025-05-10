@@ -11,7 +11,7 @@ const Home = () => {
   const {isLoading, data, error} = useQuery({
     queryKey: ['news'],
     queryFn: async () => {
-        const response = await fetch(`${apiUrl}/api/news/`);
+        const response = await fetch(`http://localhost:8000/api/news/`);
         if (!response.ok) throw new Error('Network response was not ok');
         return response.json();
     },

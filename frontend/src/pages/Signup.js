@@ -18,7 +18,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${apiUrl}/api/accounts/users/`, formData)
+      await axios.post(`http://localhost:8000/api/accounts/users/`, formData)
       window.location.href="/login"
     } catch (err) {
       if (err.response) {

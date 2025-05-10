@@ -20,12 +20,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const signin = await axios.post(`${apiUrl}/api/accounts/jwt/create`, formData);
+      const signin = await axios.post(`http://localhost:8000/api/accounts/jwt/create`, formData);
       
       localStorage.setItem('access_token', signin.data.access)
       localStorage.setItem('refresh_token', signin.data.refresh)
       axios.defaults.headers.common['Authorization'] = `Bearer ${signin.data.access}`
-      const getUser = await axios.get(`${apiUrl}/api/accounts/users/me/`)
+      const getUser = await axios.get(`http://localhost:8000/api/accounts/users/me/`)
 
       localStorage.setItem('user_id',getUser.data.id);
       localStorage.setItem('username',getUser.data.username)
