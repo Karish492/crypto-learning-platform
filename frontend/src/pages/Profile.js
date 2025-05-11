@@ -26,19 +26,19 @@ const Profile = () => {
       window.location.href = "/login"
       return;
     }
-    //getting the modules completed
+    //getting the modules completed for the specific user
     axios.get(`http://localhost:8000/api/module-tracker/user/${userId}/`).then(modules_completion => {
       setModuleData(modules_completion.data);
     }).catch(err => {
       console.log(err.response)
     });
-    //getting the course completion
+    //getting the course completion for the specific user
     axios.get(`http://localhost:8000/api/user-progress/${userId}/`).then(completion_rate => {
       setCourseCompletion(completion_rate.data.lesson_completion);
     }).catch(err => {
       console.log(err.response)
     });
-     //getting the quiz taken
+     //getting the quiz taken status for the specific user
      axios.get(`http://localhost:8000/api/quiz-tracker/user/${userId}/`).then(quiz_completion => {
       setQuizData(quiz_completion.data);
     }).catch(err => {
@@ -49,7 +49,7 @@ const Profile = () => {
   }, [token, userId, username]);
 
 
-  // Iterate over the array with a for loop
+  
   for (let i = 0; i < moduleData.length; i++) {
     if (moduleData[i].completed === true) {
       moduleCount++;
