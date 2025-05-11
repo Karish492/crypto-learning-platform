@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 const SignUp = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
-  const [UsernameMessage, setUsernameMessage] = useState("")
-  const [PasswordMessage, setPasswordMessage] = useState("")
+
   const [message, setMessage] = useState("")
 
   const handleChange = (e) => {
@@ -24,7 +23,7 @@ const SignUp = () => {
       if (err.response) {
         if (err.response.data.password) {
         console.log(err.response.data.password)
-        setPasswordMessage(err.response.data.password)
+        setMessage(err.response.data.password)
         }
         else if (err.response.data.username) {
           console.log(err.response.data.username)

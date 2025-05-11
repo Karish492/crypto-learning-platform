@@ -16,7 +16,7 @@ const Module = () => {
   const token = localStorage.getItem('access_token');
   const username = localStorage.getItem('username');
   const userId = localStorage.getItem('user_id')
-  const apiUrl = process.env.REACT_APP_API_URL;
+  
 
 
 
@@ -80,7 +80,7 @@ const Module = () => {
     const lesson_id1 = data1[CurrentLesson].lesson_id
     console.log(lesson_id1)
     try {
-      await axios.patch(`${apiUrl}/api/lesson-tracker/user/${userId}/lesson/${lesson_id1}/`, {
+      await axios.patch(`http://localhost:8000/api/lesson-tracker/user/${userId}/lesson/${lesson_id1}/`, {
         completed: true,
         user: userId,
         lesson: lesson_id1,

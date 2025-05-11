@@ -4,7 +4,6 @@ import ModuleCards from '../components/ModuleCard';
 import { useQuery } from '@tanstack/react-query';
 
 const Modules = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
     const {isLoading, error, data} = useQuery({
       queryKey: ['modules'],
       queryFn: async () => {

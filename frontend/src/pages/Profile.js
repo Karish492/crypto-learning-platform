@@ -12,7 +12,7 @@ const Profile = () => {
   const [moduleData, setModuleData] = useState("")
   const [courseCompletion, setCourseCompletion]= useState("")
   const [quizData, setQuizData] = useState("")
-  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [user, setUser] = useState({
     username: username,
     email: '',

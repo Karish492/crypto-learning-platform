@@ -19,7 +19,7 @@ const QuizPage = () => {
   const token = localStorage.getItem('access_token');
   const username = localStorage.getItem('username');
   const userId = localStorage.getItem("user_id")
-  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (!token || !username) {
       window.location.href = "/login"
