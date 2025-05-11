@@ -56,6 +56,7 @@ const Home = () => {
 
             Join us today and start your journey to mastering cryptocurrency!
           </p>
+          <p> DISCLAIMER: This website does not offer any financial advice. This website is for educational purposes only.</p>
         </div>
 
         <div className="flex-none h-full rounded-lg shadow-lg">
