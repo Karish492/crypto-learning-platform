@@ -1,7 +1,15 @@
 Welcome to your repo for COM2027, Group 28!
 =====================================================
 
-Feel free to change this README.
+This project can be started using Docker.
+Running With Docker (in terminal)
+- cd into Group28
+- run "docker-compose build" 
+- run "docker-compose up"
+To Stop Docker 
+- Ctrl-C 
+To remove the containers from your device 
+- "docker-compose down"
 
 Getting started
 ---------------
