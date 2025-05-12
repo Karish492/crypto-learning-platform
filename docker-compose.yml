@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend-django
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - backend_db_data:/app/db/
+
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend-react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  backend_db_data:
